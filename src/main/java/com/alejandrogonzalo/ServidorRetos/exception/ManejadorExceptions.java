@@ -14,11 +14,17 @@ public class ManejadorExceptions {
 	@ExceptionHandler(EmailExistenteException.class)
 	@ResponseStatus(HttpStatus.CONFLICT) // Devuelve HTTP 409
 	public Map<String, String> manejarEmailExistente(EmailExistenteException ex) {
-		
 		Map<String, String> error = new HashMap<>();
-		error.put("error", ex.getMessage()); // Esto será el mensaje en el JSON
-		
+		error.put("error", ex.getMessage());
 		return error;
 	}
 
+	@ExceptionHandler(NicknameExistenteException.class)
+	@ResponseStatus(HttpStatus.CONFLICT) // Devuelve HTTP 409
+	public Map<String, String> manejarNicknameExistente(NicknameExistenteException ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", ex.getMessage());
+		return error;
+	}
+	
 }
