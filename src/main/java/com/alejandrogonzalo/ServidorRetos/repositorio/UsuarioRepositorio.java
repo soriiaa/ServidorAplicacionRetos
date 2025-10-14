@@ -6,8 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.alejandrogonzalo.ServidorRetos.modelo.Usuario;
 
-public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
+/**
+ * @author alexs
+ * 
+ * Esta es la clase encargada de hablar con la base de datos
+ */
+public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 	
-	Optional<Usuario> findByEmail(String email);
+	public boolean existsByEmail(String email);
 
 }

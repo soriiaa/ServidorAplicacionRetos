@@ -18,9 +18,14 @@ public class UsuarioControlador {
 		this.usuarioServicio = usuarioServicio;
 	}
 	
+	/**
+	 * 
+	 * @param usuario
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping
-	public Usuario crearUsuario(@RequestBody Usuario usuario) throws Exception {
-		System.out.println("Usuario Creado //////////////////////////////////////////////////////////");
+	public Usuario crearUsuario(@RequestBody Usuario usuario) {
 		return usuarioServicio.crearUsuario(usuario);
 	}
 

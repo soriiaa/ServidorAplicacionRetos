@@ -2,6 +2,7 @@ package com.alejandrogonzalo.ServidorRetos.modelo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,8 +19,10 @@ public class Usuario {
 	private String nickname;
 	private String nombre;
 	private String contrasena;
+	@Column(name = "fecha_nacimiento")
 	private LocalDate fechaNacimiento;
 	private String sexo;
+	@Column(name = "correo_electronico")
 	private String email;
 	private String telefono;
 
