@@ -1,5 +1,6 @@
 package com.alejandrogonzalo.ServidorRetos.servicio;
 
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.alejandrogonzalo.ServidorRetos.exception.EmailExistenteException;
@@ -11,9 +12,11 @@ import com.alejandrogonzalo.ServidorRetos.repositorio.UsuarioRepositorio;
 public class UsuarioServicio {
 
 	private UsuarioRepositorio usuarioRepositorio;
+	private Argon2PasswordEncoder passwordEncoder;
 
-	public UsuarioServicio(UsuarioRepositorio usuarioRepositorio) {
+	public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, Argon2PasswordEncoder passwordEncoder) {
 		this.usuarioRepositorio = usuarioRepositorio;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	/**
@@ -32,6 +35,8 @@ public class UsuarioServicio {
 		} else if (existeNickname) {
 			throw new NicknameExistenteException("El nickname ya está en uso.");
 		} else {
+			String contrasenaHasheada = passwordEncoder.encode(usuario.getContrasena());
+	        usuario.setContrasena(contrasenaHasheada);
 			return usuarioRepositorio.save(usuario);
 		}
 

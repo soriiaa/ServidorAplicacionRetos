@@ -9,7 +9,6 @@ public class SecurityConfig {
 
 	@Bean
 	public Argon2PasswordEncoder passwordEncoder() {
-		// parámetros por defecto seguros para Spring Security
 		return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 	}
 }
