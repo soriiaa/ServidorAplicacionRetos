@@ -61,9 +61,10 @@ public class UsuarioServicio {
 		
 		JwtUtil jwtUtil = new JwtUtil();
 
-		String token = jwtUtil.generarAccessToken(request.getEmail());
+		String accessToken = jwtUtil.generarAccessToken(request.getEmail());
+		String refreshToken = jwtUtil.generarRefreshToken(request.getEmail());
 
-		return new LoginResponse(token, usuario.getId(), usuario.getNickname());
+		return new LoginResponse(accessToken, usuario.getId(), usuario.getNickname());
 	}
 
 }
