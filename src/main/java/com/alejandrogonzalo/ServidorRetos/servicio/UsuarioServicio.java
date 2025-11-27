@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.alejandrogonzalo.ServidorRetos.exception.EmailExistenteException;
 import com.alejandrogonzalo.ServidorRetos.exception.NicknameExistenteException;
+import com.alejandrogonzalo.ServidorRetos.modelo.LoginRequest;
+import com.alejandrogonzalo.ServidorRetos.modelo.LoginResponse;
 import com.alejandrogonzalo.ServidorRetos.modelo.Usuario;
 import com.alejandrogonzalo.ServidorRetos.repositorio.UsuarioRepositorio;
 
@@ -41,4 +43,14 @@ public class UsuarioServicio {
 		}
 
 	}
+	
+	public LoginResponse login(LoginRequest request) {
+		
+		boolean existeElEmail = usuarioRepositorio.existsByEmail(request.getEmail());
+		
+		
+		
+		return null;
+	}
+	
 }

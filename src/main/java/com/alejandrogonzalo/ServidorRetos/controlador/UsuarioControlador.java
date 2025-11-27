@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alejandrogonzalo.ServidorRetos.exception.EmailExistenteException;
+import com.alejandrogonzalo.ServidorRetos.modelo.LoginRequest;
+import com.alejandrogonzalo.ServidorRetos.modelo.LoginResponse;
 import com.alejandrogonzalo.ServidorRetos.modelo.Usuario;
 import com.alejandrogonzalo.ServidorRetos.servicio.UsuarioServicio;
 
@@ -28,5 +31,12 @@ public class UsuarioControlador {
 	public Usuario crearUsuario(@RequestBody Usuario usuario) {
 		return usuarioServicio.crearUsuario(usuario);
 	}
+	
+	@PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return usuarioServicio.login(request.getEmail(), request.getContrasena());
+    }
+
+	
 
 }
