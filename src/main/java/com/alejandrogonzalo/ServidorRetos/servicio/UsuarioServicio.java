@@ -3,6 +3,7 @@ package com.alejandrogonzalo.ServidorRetos.servicio;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.alejandrogonzalo.ServidorRetos.config.SecurityConfig.JwtUtil;
 import com.alejandrogonzalo.ServidorRetos.exception.CredencialesInvalidasException;
 import com.alejandrogonzalo.ServidorRetos.exception.EmailExistenteException;
 import com.alejandrogonzalo.ServidorRetos.exception.NicknameExistenteException;
@@ -57,8 +58,10 @@ public class UsuarioServicio {
 		if (!contrasenaCorrecta) {
 			throw new CredencialesInvalidasException();
 		}
+		
+		JwtUtil jwtUtil = new JwtUtil();
 
-		String token = jwtUtil.generarToken(request.getEmail());
+		String token = jwtUtil.generarAccessToken(request.getEmail());
 
 		return new LoginResponse(token, usuario.getId(), usuario.getNickname());
 	}
