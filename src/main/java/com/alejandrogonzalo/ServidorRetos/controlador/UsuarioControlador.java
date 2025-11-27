@@ -34,7 +34,7 @@ public class UsuarioControlador {
 	
 	@PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        return usuarioServicio.login(request.getEmail(), request.getContrasena());
+        return usuarioServicio.login(request);
     }
 
 	

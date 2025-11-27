@@ -26,5 +26,13 @@ public class ManejadorExceptions {
 		error.put("error", ex.getMessage());
 		return error;
 	}
-	
+
+	@ExceptionHandler(CredencialesInvalidasException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public Map<String, String> handleCredencialesInvalidas(CredencialesInvalidasException ex) {
+		Map<String, String> error = new HashMap<>();
+		error.put("error", ex.getMessage());
+		return error;
+	}
+
 }

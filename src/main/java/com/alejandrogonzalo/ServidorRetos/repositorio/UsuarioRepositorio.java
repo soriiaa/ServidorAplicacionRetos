@@ -1,5 +1,7 @@
 package com.alejandrogonzalo.ServidorRetos.repositorio;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.alejandrogonzalo.ServidorRetos.modelo.Usuario;
@@ -13,5 +15,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 	
 	public boolean existsByEmail(String email);
 	public boolean existsByNickname(String nickname);
+	Optional<Usuario> findByEmail(String email);
 
 }
