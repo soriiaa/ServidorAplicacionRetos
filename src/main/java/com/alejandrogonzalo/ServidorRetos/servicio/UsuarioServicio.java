@@ -17,10 +17,12 @@ public class UsuarioServicio {
 
 	private UsuarioRepositorio usuarioRepositorio;
 	private Argon2PasswordEncoder passwordEncoder;
+	private JwtUtil jwtUtil;
 
-	public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, Argon2PasswordEncoder passwordEncoder) {
+	public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, Argon2PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
 		this.usuarioRepositorio = usuarioRepositorio;
 		this.passwordEncoder = passwordEncoder;
+		this.jwtUtil = jwtUtil;
 	}
 
 	/**
@@ -50,17 +52,17 @@ public class UsuarioServicio {
 
 	public LoginResponse login(LoginRequest request) {
 
-		Usuario usuario = usuarioRepositorio.findByEmail(request.getEmail())
-				.orElseThrow(CredencialesInvalidasException::new);
+		Usuario usuario = usuarioRepositorio.findByEmail(request.getEmail()).orElse(null);
 
-		// Comprobar si request.getContrasena() esta hasheado o no
+		if (usuario == null) {
+			throw new CredencialesInvalidasException();
+		}
+
 		boolean contrasenaCorrecta = passwordEncoder.matches(request.getContrasena(), usuario.getContrasena());
 
 		if (!contrasenaCorrecta) {
 			throw new CredencialesInvalidasException();
 		}
-		
-		JwtUtil jwtUtil = new JwtUtil();
 
 		String accessToken = jwtUtil.generarAccessToken(request.getEmail());
 		String refreshToken = jwtUtil.generarRefreshToken(request.getEmail());
