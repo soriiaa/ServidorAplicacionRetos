@@ -53,6 +53,7 @@ public class UsuarioServicio {
 		Usuario usuario = usuarioRepositorio.findByEmail(request.getEmail())
 				.orElseThrow(CredencialesInvalidasException::new);
 
+		// Comprobar si request.getContrasena() esta hasheado o no
 		boolean contrasenaCorrecta = passwordEncoder.matches(request.getContrasena(), usuario.getContrasena());
 
 		if (!contrasenaCorrecta) {
@@ -64,7 +65,7 @@ public class UsuarioServicio {
 		String accessToken = jwtUtil.generarAccessToken(request.getEmail());
 		String refreshToken = jwtUtil.generarRefreshToken(request.getEmail());
 
-		return new LoginResponse(accessToken, usuario.getId(), usuario.getNickname());
+		return new LoginResponse(accessToken, refreshToken, usuario.getId(), usuario.getNickname());
 	}
 
 }

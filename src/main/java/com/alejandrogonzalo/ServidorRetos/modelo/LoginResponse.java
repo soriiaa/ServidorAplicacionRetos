@@ -2,24 +2,30 @@ package com.alejandrogonzalo.ServidorRetos.modelo;
 
 public class LoginResponse {
 
-	private String token;
+	private String accessToken;
+	private String refreshToken;
 	private Long usuarioId;
 	private String nickname;
 
-	public LoginResponse(String token, Long usuarioId, String nickname) {
-		this.token = token;
+	public LoginResponse(String accessToken, String refreshToken, Long usuarioId, String nickname) {
+		this.accessToken = accessToken;
+		this.refreshToken = refreshToken;
 		this.usuarioId = usuarioId;
 		this.nickname = nickname;
 	}
 
-	public String getToken() {
-		return token;
+	public String getAccessToken() {
+		return accessToken;
 	}
-	
+
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
 	public Long getUsuarioId() {
 		return usuarioId;
 	}
-	
+
 	public String getNickname() {
 		return nickname;
 	}
