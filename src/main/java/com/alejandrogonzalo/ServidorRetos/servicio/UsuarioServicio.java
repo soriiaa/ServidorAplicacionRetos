@@ -18,11 +18,13 @@ public class UsuarioServicio {
 	private UsuarioRepositorio usuarioRepositorio;
 	private Argon2PasswordEncoder passwordEncoder;
 	private JwtUtil jwtUtil;
+	private final RefreshTokenServicio refreshTokenServicio;
 
-	public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, Argon2PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+	public UsuarioServicio(UsuarioRepositorio usuarioRepositorio, Argon2PasswordEncoder passwordEncoder, JwtUtil jwtUtil, RefreshTokenServicio refreshTokenServicio) {
 		this.usuarioRepositorio = usuarioRepositorio;
 		this.passwordEncoder = passwordEncoder;
 		this.jwtUtil = jwtUtil;
+		this.refreshTokenServicio = refreshTokenServicio;
 	}
 
 	/**
@@ -66,6 +68,9 @@ public class UsuarioServicio {
 
 		String accessToken = jwtUtil.generarAccessToken(request.getEmail());
 		String refreshToken = jwtUtil.generarRefreshToken(request.getEmail());
+		// Aqui falta sustituir el lol con el dispositivo desde el cual se inicia sesión
+		String tokenHash = passwordEncoder.encode(refreshToken);
+		refreshTokenServicio.guardarRefreshToken(usuario.getId(), tokenHash, request.getDispositivo());
 
 		return new LoginResponse(accessToken, refreshToken, usuario.getId(), usuario.getNickname());
 	}
